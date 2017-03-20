@@ -1,30 +1,24 @@
-NAME 		= samtools
-DIR_SRC = $(DIR_SERVICES_ROOT_SRC)/samtools/src
-DIR_INCLUDE = $(DIR_SERVICES_ROOT_SRC)/samtools/include
-CC		= gcc
-CXX		= g++
-MAKEDEPEND 	= gcc -MM -MF
+NAME 		:= samtools
+DIR_BUILD :=  $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+DIR_SRC := $(realpath $(DIR_BUILD)/../../src)
+DIR_INCLUDE :=$(realpath $(DIR_BUILD)/../../include)
 
-
-
-ifeq ($(DIR_ROOT),)
-export DIR_ROOT = $(realpath $(../..))
+ifeq ($(DIR_BUILD_CONFIG),)
+export DIR_BUILD_CONFIG := $(realpath $(DIR_BUILD)/../../../../build-config/linux)
 endif
 
-ifneq ($(PROPERTIES_SET),1)
-include $(DIR_BUILD_ROOT)/project.properties
-endif
+include $(DIR_BUILD_CONFIG)/project.properties
 
 export DIR_INSTALL=$(DIR_GRASSROOTS_INSTALL)/services
 
-BUILD		= debug
+BUILD := debug
 
 
-VPATH	= \
+VPATH := \
 	$(DIR_SRC) \
 	
 
-INCLUDES = \
+INCLUDES := \
 	-I$(DIR_INCLUDE) \
 	-I$(DIR_GRASSROOTS_UTIL_INC) \
 	-I$(DIR_GRASSROOTS_UTIL_INC)/containers \
@@ -38,7 +32,7 @@ INCLUDES = \
 	-I$(DIR_UUID_INC) \
 	-I$(DIR_HTSLIB_INC)
 	
-SRCS 	= \
+SRCS := \
 	paired_samtools_service.c \
 	samtools_service.c \	
 	
@@ -54,5 +48,5 @@ LDFLAGS += -L$(DIR_JANSSON_LIB) -ljansson \
 	-lpthread
 
 
-include $(DIR_BUILD_ROOT)/generic_makefiles/shared_library.makefile
+include $(DIR_BUILD_CONFIG)/generic_makefiles/shared_library.makefile
 
