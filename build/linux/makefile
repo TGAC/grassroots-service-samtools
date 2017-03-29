@@ -9,9 +9,23 @@ endif
 
 include $(DIR_BUILD_CONFIG)/project.properties
 
+# include the configuration details of any dependencies
+-include $(DIR_BUILD)/user.prefs
+
 export DIR_INSTALL=$(DIR_GRASSROOTS_INSTALL)/services
 
 BUILD := debug
+
+
+# BEGIN HTSLIB CONFIGURATION
+ifneq ($(HTSLIB_HOME),)
+DIR_HTSLIB := $(HTSLIB_HOME)
+else
+DIR_HTSLIB := /usr/local
+endif
+export DIR_HTSLIB_INC := $(DIR_HTSLIB)/include
+export DIR_HTSLIB_LIB := $(DIR_HTSLIB)/lib
+# END HTSLIB CONFIGURATION
 
 
 VPATH := \

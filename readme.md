@@ -1,4 +1,4 @@
-# SamTools service
+﻿# SamTools service
 
 The SamTools service allows the Grassroots Server to use the functionality provided by [Samtools](http://www.htslib.org) by Heng Li *et al.*. 
 Currently it has the ability to retrieve a complete named scaffold from some sequence data.
@@ -11,11 +11,26 @@ The files to build the SamTools service are in the ```build/<platform>``` direct
 
 ### Linux
 
-If you enter this directory 
+Enter the build directory 
 
 ```cd build/linux```
 
-you can then build the service by typing
+and create a *user.prefs* file.
+
+```cp example-user.prefs user.prefs```
+
+You will need to edit this file to configure where the SamTools dependencies are stored. The file content is similar to the following
+
+``` 
+#
+# samtools dependencies
+#
+# Set this to where you have the htslib directory 
+# containing "include" and "lib" subdirectories.
+export HTSLIB_HOME := $(DIR_GRASSROOTS_EXTRAS)/htslib
+```
+
+Adjust the ```HTSLIB_HOME``` to where you have htslib installed. You can then build the service by typing
 
 ```make all```
 

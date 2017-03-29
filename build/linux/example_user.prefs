@@ -1,0 +1,6 @@
+#
+# samtools dependencies
+#
+# Set this to where you have the htslib directory 
+# containing "include" and "lib" subdirectories.
+export HTSLIB_HOME := $(DIR_GRASSROOTS_EXTRAS)/htslib
