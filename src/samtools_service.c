@@ -128,7 +128,7 @@ ServicesArray *GetServices (UserDetails *user_p)
 								CloseSamToolsService,
 								NULL,
 								true,
-								true,
+								SY_SYNCHRONOUS,
 								data_p);
 							
 							if (GetSamToolsServiceConfig (sam_data_p))
