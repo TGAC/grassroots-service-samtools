@@ -354,15 +354,12 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 
 													LogParameterSet (param_set_p, job_p);
 
-													job_p -> sj_status = OS_STARTED;
+													SetServiceJobStatus (job_p, OS_STARTED);
 													LogServiceJob (job_p);
 
-
 													/* Assume failure */
-													job_p -> sj_status = OS_FAILED;
+													SetServiceJobStatus (job_p, OS_FAILED);
 
-													// temporarily don't pass break index
-													//break_index = 0;
 													if (GetScaffoldData (selected_index_data_p -> id_fasta_filename_s, scaffold_s, break_index, buffer_p))
 														{
 															json_t *result_p = NULL;
@@ -398,7 +395,7 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 																{
 																	if (AddResultToServiceJob (job_p, result_p))
 																		{
-																			job_p -> sj_status = OS_SUCCEEDED;
+																			SetServiceJobStatus (job_p, OS_SUCCEEDED);
 																		}
 																	else
 																		{
