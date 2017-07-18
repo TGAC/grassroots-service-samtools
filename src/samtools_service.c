@@ -42,12 +42,12 @@ typedef struct IndexData
 {
 	const char *id_blast_db_name_s;
 	const char *id_fasta_filename_s;
-} IndexData;
+} PolymarkerSequence;
 
 typedef struct SamToolsServiceData
 {
 	ServiceData stsd_base_data;
-	IndexData *stsd_index_data_p;
+	PolymarkerSequence *stsd_index_data_p;
 	size_t stsd_index_data_size;
 } SamToolsServiceData;
 
@@ -93,7 +93,7 @@ static bool GetScaffoldData (const char * const filename_s, const char * const s
 static bool GetSamToolsServiceConfig (SamToolsServiceData *data_p);
 
 
-static IndexData *GetSelectedIndexData (const SamToolsServiceData * const data_p, const ParameterSet *params_p);
+static PolymarkerSequence *GetSelectedIndexData (const SamToolsServiceData * const data_p, const ParameterSet *params_p);
 
 static Parameter *SetUpIndexesParamater (const SamToolsServiceData *service_data_p, ParameterSet *param_set_p, ParameterGroup *group_p);
 
@@ -176,7 +176,7 @@ static bool GetSamToolsServiceConfig (SamToolsServiceData *data_p)
 						{
 							size_t size = json_array_size (index_files_p);
 
-							data_p -> stsd_index_data_p = (IndexData *) AllocMemoryArray (sizeof (IndexData), size);
+							data_p -> stsd_index_data_p = (PolymarkerSequence *) AllocMemoryArray (sizeof (PolymarkerSequence), size);
 
 							if (data_p -> stsd_index_data_p)
 								{
@@ -199,7 +199,7 @@ static bool GetSamToolsServiceConfig (SamToolsServiceData *data_p)
 						{
 							if (json_is_object (index_files_p))
 								{
-									data_p -> stsd_index_data_p = (IndexData *) AllocMemoryArray (sizeof (IndexData), 1);
+									data_p -> stsd_index_data_p = (PolymarkerSequence *) AllocMemoryArray (sizeof (PolymarkerSequence), 1);
 
 									if (data_p -> stsd_index_data_p)
 										{
@@ -322,7 +322,7 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 	if (service_p -> se_jobs_p)
 		{
 			Parameter *param_p = NULL;
-			IndexData *selected_index_data_p = GetSelectedIndexData (data_p, param_set_p);
+			PolymarkerSequence *selected_index_data_p = GetSelectedIndexData (data_p, param_set_p);
 
 			if (selected_index_data_p)
 				{
@@ -613,13 +613,13 @@ static  ParameterSet *IsFileForSamToolsService (Service * UNUSED_PARAM (service_
 }
 
 
-static IndexData *GetSelectedIndexData (const SamToolsServiceData * const data_p, const ParameterSet *params_p)
+static PolymarkerSequence *GetSelectedIndexData (const SamToolsServiceData * const data_p, const ParameterSet *params_p)
 {
 	SharedType def;
 
 	if (GetParameterValueFromParameterSet (params_p, SS_INDEX.npt_name_s, &def, true))
 		{
-			IndexData *index_data_p = data_p -> stsd_index_data_p;
+			PolymarkerSequence *index_data_p = data_p -> stsd_index_data_p;
 			size_t i = data_p ->  stsd_index_data_size;
 			const char *value_s = def.st_string_value_s;
 
@@ -673,7 +673,7 @@ static Parameter *SetUpIndexesParamater (const SamToolsServiceData *service_data
 
 	if (num_dbs > 0)
 		{
-			IndexData *index_data_p = service_data_p -> stsd_index_data_p;
+			PolymarkerSequence *index_data_p = service_data_p -> stsd_index_data_p;
 			SharedType def;
 
 			def.st_string_value_s = (char *) (index_data_p -> id_blast_db_name_s);
