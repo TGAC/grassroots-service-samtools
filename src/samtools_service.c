@@ -607,7 +607,7 @@ static bool GetScaffoldData (const char * const filename_s, const char * const s
 }
 
 
-static  ParameterSet *IsFileForSamToolsService (Service * UNUSED_PARAM (service_p), Resource * UNUSED_PARAM (resource_p), Handler * UNUSED_PARAM (handler_p))
+static ParameterSet *IsFileForSamToolsService (Service * UNUSED_PARAM (service_p), Resource * UNUSED_PARAM (resource_p), Handler * UNUSED_PARAM (handler_p))
 {
 	return NULL;
 }

@@ -60,9 +60,9 @@
  *
  * 		const char *SERVICE_NAME_S = "path";
  *
- * ALLOCATE_JSON_TAGS must be defined only once prior to
+ * ALLOCATE_SAMTOOLS_TAGS must be defined only once prior to
  * including this header file. Currently this happens in
- * json_util.c.
+ * samtools_service.c.
  */
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
 
@@ -76,7 +76,11 @@
 
 #endif 		/* #ifndef DOXYGEN_SHOULD_SKIP_THIS */
 
-
+/**
+ * The NamedParamaterType specifying the input file that the Samtools service
+ * will use. This can be either the name of the index file itself or the
+ * associated BLAST database.
+ */
 SAMTOOLS_PREFIX NamedParameterType SS_INDEX SAMTOOLS_VAL ("input_file", PT_STRING);
 
 
@@ -88,7 +92,8 @@ extern "C"
 /**
  * Get the ServicesArray containing the SamTools Services.
  *
- * @param config_p The service configuration data.
+ * @param user_p The UserDetails for the user trying to access the services.
+ * This can be <code>NULL</code>.
  * @return The ServicesArray containing all of the SamTools Services or
  * <code>NULL</code> upon error.
  * @ingroup samtools_service

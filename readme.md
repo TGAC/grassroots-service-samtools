@@ -13,11 +13,15 @@ The files to build the SamTools service are in the ```build/<platform>``` direct
 
 Enter the build directory 
 
-```cd build/linux```
+```
+cd build/linux
+```
 
 and create a *user.prefs* file.
 
-```cp example-user.prefs user.prefs```
+```
+cp example-user.prefs user.prefs
+```
 
 You will need to edit this file to configure where the SamTools dependencies are stored. The file content is similar to the following
 
@@ -32,11 +36,15 @@ export HTSLIB_HOME := $(DIR_GRASSROOTS_EXTRAS)/htslib
 
 Adjust the ```HTSLIB_HOME``` to where you have htslib installed. You can then build the service by typing
 
-```make all```
+```
+make all
+```
 
 and then 
 
-```make install```
+```
+make install
+```
 
 to install the service into the Grassroots system where it will be available for use immediately.
 
