@@ -97,6 +97,8 @@ static IndexData *GetSelectedIndexData (const SamToolsServiceData * const data_p
 
 static Parameter *SetUpIndexesParamater (const SamToolsServiceData *service_data_p, ParameterSet *param_set_p, ParameterGroup *group_p);
 
+static ServiceMetadata *GetSamToolsServiceMetadata (Service *service_p);
+
 
 /*
  * API FUNCTIONS
@@ -117,7 +119,7 @@ ServicesArray *GetServices (UserDetails *user_p)
 						{
 							SamToolsServiceData *sam_data_p = (SamToolsServiceData *) data_p;
 
-							InitialiseService (service_p,
+							if (InitialiseService (service_p,
 								GetSamToolsServiceName,
 								GetSamToolsServiceDesciption,
 								NULL,
@@ -129,15 +131,17 @@ ServicesArray *GetServices (UserDetails *user_p)
 								NULL,
 								true,
 								SY_SYNCHRONOUS,
-								data_p);
-							
-							if (GetSamToolsServiceConfig (sam_data_p))
+								data_p,
+								GetSamToolsServiceMetadata))
 								{
-									* (services_p -> sa_services_pp) = service_p;
+							
+									if (GetSamToolsServiceConfig (sam_data_p))
+										{
+											* (services_p -> sa_services_pp) = service_p;
 
-									return services_p;
+											return services_p;
+										}
 								}
-
 						}
 
 					FreeServicesArray (services_p);
@@ -609,6 +613,82 @@ static bool GetScaffoldData (const char * const filename_s, const char * const s
 
 static ParameterSet *IsFileForSamToolsService (Service * UNUSED_PARAM (service_p), Resource * UNUSED_PARAM (resource_p), Handler * UNUSED_PARAM (handler_p))
 {
+	return NULL;
+}
+
+
+
+static ServiceMetadata *GetSamToolsServiceMetadata (Service *service_p)
+{
+	const char *term_url_s = CONTEXT_PREFIX_EDAM_ONTOLOGY_S "operation_0491";
+	SchemaTerm *category_p = AllocateSchemaTerm (term_url_s, "Sequence assembly visualisation", "Render and visualise a DNA sequence assembly.");
+
+	if (category_p)
+		{
+			ServiceMetadata *metadata_p = AllocateServiceMetadata (category_p, NULL);
+
+			if (metadata_p)
+				{
+					SchemaTerm *input_p;
+
+					term_url_s = CONTEXT_PREFIX_EDAM_ONTOLOGY_S "data_1063";
+					input_p = AllocateSchemaTerm (term_url_s, "Sequence identifier", "An identifier of molecular sequence(s) or entries from a molecular sequence database.");
+
+					if (input_p)
+						{
+							if (AddSchemaTermToServiceMetadataInput (metadata_p, input_p))
+								{
+									SchemaTerm *output_p;
+
+									term_url_s = CONTEXT_PREFIX_EDAM_ONTOLOGY_S "data_1063";
+									output_p = AllocateSchemaTerm (term_url_s, "Sequence", "This concept is a placeholder of concepts "
+										"for primary sequence data including raw sequences and sequence records. It should not normally be used for "
+										"derivatives such as sequence alignments, motifs or profiles. One or more molecular sequences, possibly with "
+										"associated annotation.");
+
+									if (output_p)
+										{
+											if (AddSchemaTermToServiceMetadataOutput (metadata_p, output_p))
+												{
+													return metadata_p;
+												}		/* if (AddSchemaTermToServiceMetadataOutput (metadata_p, output_p)) */
+											else
+												{
+													PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to add output term %s to service metadata", term_url_s);
+													FreeSchemaTerm (output_p);
+												}
+
+										}		/* if (output_p) */
+									else
+										{
+											PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to allocate output term %s for service metadata", term_url_s);
+										}
+
+								}		/* if (AddSchemaTermToServiceMetadataInput (metadata_p, input_p)) */
+							else
+								{
+									PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to add input term %s to service metadata", term_url_s);
+									FreeSchemaTerm (input_p);
+								}
+
+						}		/* if (input_p) */
+					else
+						{
+							PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to allocate input term %s for service metadata", term_url_s);
+						}
+
+				}		/* if (metadata_p) */
+			else
+				{
+					PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to allocate service metadata");
+				}
+
+		}		/* if (category_p) */
+	else
+		{
+			PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to allocate category term %s for service metadata", term_url_s);
+		}
+
 	return NULL;
 }
 
