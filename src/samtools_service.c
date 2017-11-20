@@ -268,7 +268,7 @@ static const char *GetSamToolsServiceName (Service * UNUSED_PARAM (service_p))
 
 static const char *GetSamToolsServiceDesciption (Service * UNUSED_PARAM (service_p))
 {
-	return "A service using SamTools";
+	return "A service that enables efficient access to arbitrary regions within available reference sequences.";
 }
 
 
