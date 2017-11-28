@@ -342,7 +342,7 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 
 									if (buffer_p)
 										{
-											ServiceJob *job_p = CreateAndAddServiceJobToServiceJobSet (service_p -> se_jobs_p, scaffold_s, selected_index_data_p -> id_blast_db_name_s, NULL, NULL, NULL);
+											ServiceJob *job_p = CreateAndAddServiceJobToService (service_p, scaffold_s, selected_index_data_p -> id_blast_db_name_s, NULL, NULL, NULL, false);
 
 											if (job_p)
 												{
