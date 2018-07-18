@@ -1,4 +1,4 @@
-﻿# SamTools service {#samtools_service}
+﻿# SamTools service {#samtools_service_guide}
 
 The SamTools service allows the Grassroots Server to use the functionality provided by [Samtools](http://www.htslib.org) by Heng Li *et al.*. 
 Currently it has the ability to retrieve a complete named scaffold from some sequence data.
