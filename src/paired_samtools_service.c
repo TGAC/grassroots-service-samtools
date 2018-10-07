@@ -24,9 +24,10 @@
  * @brief
  */
 
+#include "paired_samtools_service.h"
+
 #include <string.h>
 
-#include "paired_samtools_service.h"
 #include "string_utils.h"
 #include "parameter_set.h"
 
