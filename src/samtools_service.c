@@ -79,6 +79,8 @@ static const char *GetSamToolsServiceDesciption (Service *service_p);
 
 static ParameterSet *GetSamToolsServiceParameters (Service *service_p, Resource *resource_p, UserDetails *user_p);
 
+static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p);
+
 static void ReleaseSamToolsServiceParameters (Service *service_p, ParameterSet *params_p);
 
 static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, UserDetails *user_p, ProvidersStateTable *providers_p);
@@ -126,6 +128,7 @@ ServicesArray *GetServices (UserDetails *user_p)
 								RunSamToolsService,
 								IsFileForSamToolsService,
 								GetSamToolsServiceParameters,
+								GetSamToolsServiceParameterTypesForNamedParameters,
 								ReleaseSamToolsServiceParameters,
 								CloseSamToolsService,
 								NULL,
@@ -311,7 +314,25 @@ static void ReleaseSamToolsServiceParameters (Service * UNUSED_PARAM (service_p)
 }
 
 
+static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p)
+{
+	bool success_flag = true;
 
+	if (strcmp (param_name_s, SS_SCAFFOLD.npt_name_s) == 0)
+		{
+			*pt_p = SS_SCAFFOLD.npt_name_s;
+		}
+	else if (strcmp (param_name_s, SS_SCAFFOLD_LINE_BREAK.npt_name_s) == 0)
+		{
+			*pt_p = SS_SCAFFOLD_LINE_BREAK.npt_name_s;
+		}
+	else
+		{
+			success_flag = false;
+		}
+
+	return success_flag;
+}
 
 
 static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, UserDetails * UNUSED_PARAM (user_p), ProvidersStateTable *providers_p)
