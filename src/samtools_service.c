@@ -320,11 +320,11 @@ static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *
 
 	if (strcmp (param_name_s, SS_SCAFFOLD.npt_name_s) == 0)
 		{
-			*pt_p = SS_SCAFFOLD.npt_name_s;
+			*pt_p = SS_SCAFFOLD.npt_type;
 		}
 	else if (strcmp (param_name_s, SS_SCAFFOLD_LINE_BREAK.npt_name_s) == 0)
 		{
-			*pt_p = SS_SCAFFOLD_LINE_BREAK.npt_name_s;
+			*pt_p = SS_SCAFFOLD_LINE_BREAK.npt_type;
 		}
 	else
 		{
