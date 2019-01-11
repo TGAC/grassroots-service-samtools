@@ -290,11 +290,11 @@ static ParameterSet *GetSamToolsServiceParameters (Service *service_p, Resource 
 
 					def.st_string_value_s = NULL;
 
-					if ((param_p = EasyCreateAndAddParameterToParameterSet (& (data_p -> stsd_base_data), param_set_p, NULL, SS_SCAFFOLD.npt_type, SS_SCAFFOLD.npt_name_s, "Scaffold name", "The name of the scaffold to find", NULL, def, PL_ALL)) != NULL)
+					if ((param_p = EasyCreateAndAddParameterToParameterSet (& (data_p -> stsd_base_data), param_set_p, NULL, SS_SCAFFOLD.npt_type, SS_SCAFFOLD.npt_name_s, "Scaffold name", "The name of the scaffold to find", def, PL_ALL)) != NULL)
 						{
 							def.st_long_value = ST_DEFAULT_LINE_BREAK_INDEX;
 
-							if ((param_p = EasyCreateAndAddParameterToParameterSet (& (data_p -> stsd_base_data), param_set_p, NULL, SS_SCAFFOLD_LINE_BREAK.npt_type, SS_SCAFFOLD_LINE_BREAK.npt_name_s, "Max Line Length", "If this is greater than 0, then add a newline after each block of this many letters", NULL, def, PL_ADVANCED)) != NULL)
+							if ((param_p = EasyCreateAndAddParameterToParameterSet (& (data_p -> stsd_base_data), param_set_p, NULL, SS_SCAFFOLD_LINE_BREAK.npt_type, SS_SCAFFOLD_LINE_BREAK.npt_name_s, "Max Line Length", "If this is greater than 0, then add a newline after each block of this many letters", def, PL_ADVANCED)) != NULL)
 								{
 									return param_set_p;
 								}
