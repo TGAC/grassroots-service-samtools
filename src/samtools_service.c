@@ -318,7 +318,11 @@ static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *
 {
 	bool success_flag = true;
 
-	if (strcmp (param_name_s, SS_SCAFFOLD.npt_name_s) == 0)
+	if (strcmp (param_name_s, SS_INDEX.npt_name_s) == 0)
+		{
+			*pt_p = SS_INDEX.npt_type;
+		}
+	else if (strcmp (param_name_s, SS_SCAFFOLD.npt_name_s) == 0)
 		{
 			*pt_p = SS_SCAFFOLD.npt_type;
 		}
