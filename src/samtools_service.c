@@ -318,6 +318,7 @@ static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *
 {
 	bool success_flag = true;
 
+
 	if (strcmp (param_name_s, SS_INDEX.npt_name_s) == 0)
 		{
 			*pt_p = SS_INDEX.npt_type;
@@ -338,6 +339,62 @@ static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *
 	return success_flag;
 }
 
+
+static bool GetDatabaseParameterTypeForNamedParameter (SamToolsServiceData *data_p, const char *param_name_s, ParameterType *pt_p)
+{
+	bool success_flag = false;
+
+	if (data_p -> stsd_index_data_size > 0)
+		{
+			IndexData *index_data_p = data_p -> stsd_index_data_p;
+			const size_t num_dbs = data_p -> stsd_index_data_size;
+			const char *provider_s = NULL;
+			size_t i;
+
+			/* have we got any paired services? */
+			if (data_p -> stsd_base_data.sd_service_p -> se_paired_services.ll_size > 0)
+				{
+					json_t *provider_p = GetGlobalConfigValue (SERVER_PROVIDER_S);
+
+					if (provider_p)
+						{
+							provider_s = GetProviderName (provider_p);
+						}
+				}
+
+
+			while ((i > 0) && (!success_flag))
+				{
+					char *db_s  = NULL;
+
+					if (provider_s)
+						{
+							db_s = CreateDatabaseName (index_data_p -> id_blast_db_name_s, provider_s);
+						}
+
+					if (db_s)
+						{
+							if (strcmp (param_name_s, db_s) == 0)
+								{
+									*pt_p = PT_BOOLEAN;
+									success_flag = true;
+								}
+
+							FreeCopiedString (db_s);
+						}
+					else
+						{
+							PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "GetFullyQualifiedDatabaseName failed for \"%s\" and \"%s\"", provider_s, index_data_p -> id_blast_db_name_s);
+						}
+
+					++ index_data_p;
+					-- i;
+				}
+
+		}		/* if (num_group_params) */
+
+	return success_flag;
+}
 
 static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, UserDetails * UNUSED_PARAM (user_p), ProvidersStateTable *providers_p)
 {
@@ -453,9 +510,7 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 																}
 														}
 
-
 													LogServiceJob (job_p);
-
 												}		/* if (job_p) */
 
 
