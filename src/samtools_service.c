@@ -135,7 +135,8 @@ ServicesArray *GetServices (UserDetails *user_p)
 								true,
 								SY_SYNCHRONOUS,
 								data_p,
-								GetSamToolsServiceMetadata))
+								GetSamToolsServiceMetadata,
+								NULL))
 								{
 							
 									if (GetSamToolsServiceConfig (sam_data_p))
