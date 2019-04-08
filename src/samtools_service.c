@@ -266,7 +266,7 @@ static bool CloseSamToolsService (Service *service_p)
  
 static const char *GetSamToolsServiceName (Service * UNUSED_PARAM (service_p))
 {
-	return "SamTools service";
+	return "SamTools";
 }
 
 
