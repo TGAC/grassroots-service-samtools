@@ -23,7 +23,7 @@
 #include "jobs_manager.h"
 #include "byte_buffer.h"
 #include "paired_samtools_service.h"
-#include "grassroots_config.h"
+#include "grassroots_server.h"
 #include "provider.h"
 #include "audit.h"
 
@@ -349,18 +349,16 @@ static bool GetDatabaseParameterTypeForNamedParameter (SamToolsServiceData *data
 		{
 			IndexData *index_data_p = data_p -> stsd_index_data_p;
 			const size_t num_dbs = data_p -> stsd_index_data_size;
+			Service *service_p = data_p -> stsd_base_data.sd_service_p;
 			const char *provider_s = NULL;
 			size_t i;
 
 			/* have we got any paired services? */
-			if (data_p -> stsd_base_data.sd_service_p -> se_paired_services.ll_size > 0)
+			if (service_p -> se_paired_services.ll_size > 0)
 				{
-					json_t *provider_p = GetGlobalConfigValue (SERVER_PROVIDER_S);
+					GrassrootsServer *grassroots_p = GetGrassrootsServerFromService (service_p);
 
-					if (provider_p)
-						{
-							provider_s = GetProviderName (provider_p);
-						}
+					provider_s = GetServerProviderName (grassroots_p);
 				}
 
 
@@ -844,16 +842,13 @@ static Parameter *SetUpIndexesParamater (const SamToolsServiceData *service_data
 					bool success_flag = true;
 					size_t i;
 					const char *provider_s = NULL;
+					Service *service_p = service_data_p -> stsd_base_data.sd_service_p;
 
 					/* have we got any paired services? */
-					if (service_data_p -> stsd_base_data.sd_service_p -> se_paired_services.ll_size > 0)
+					if (service_p -> se_paired_services.ll_size > 0)
 						{
-							json_t *provider_p = GetGlobalConfigValue (SERVER_PROVIDER_S);
-
-							if (provider_p)
-								{
-									provider_s = GetProviderName (provider_p);
-								}
+							GrassrootsServer *grassroots_p = GetGrassrootsServerFromService (service_p);
+							provider_s = GetServerProviderName (grassroots_p);
 						}
 
 					for (i = 0 ; i < num_dbs; ++ i, ++ index_data_p)
