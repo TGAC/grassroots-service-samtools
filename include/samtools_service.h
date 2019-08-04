@@ -98,7 +98,7 @@ extern "C"
  * <code>NULL</code> upon error.
  * @ingroup samtools_service
  */
-SAMTOOLS_SERVICE_API ServicesArray *GetServices (UserDetails *user_p);
+SAMTOOLS_SERVICE_API ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p);
 
 
 /**

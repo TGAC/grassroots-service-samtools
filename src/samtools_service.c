@@ -105,7 +105,7 @@ static ServiceMetadata *GetSamToolsServiceMetadata (Service *service_p);
 /*
  * API FUNCTIONS
  */
-ServicesArray *GetServices (UserDetails *user_p)
+ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p)
 {
 	Service *service_p = (Service *) AllocMemory (sizeof (Service));
 
@@ -136,7 +136,8 @@ ServicesArray *GetServices (UserDetails *user_p)
 								SY_SYNCHRONOUS,
 								data_p,
 								GetSamToolsServiceMetadata,
-								NULL))
+								NULL,
+								grassroots_p))
 								{
 							
 									if (GetSamToolsServiceConfig (sam_data_p))
