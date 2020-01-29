@@ -777,7 +777,7 @@ static IndexData *GetSelectedIndexData (const SamToolsServiceData * const data_p
 {
 	SharedType def;
 
-	if (GetParameterValueFromParameterSet (params_p, SS_INDEX.npt_name_s, &def, true))
+	if (GetCurrentParameterValueFromParameterSet (params_p, SS_INDEX.npt_name_s, &def))
 		{
 			IndexData *index_data_p = data_p -> stsd_index_data_p;
 			size_t i = data_p ->  stsd_index_data_size;
