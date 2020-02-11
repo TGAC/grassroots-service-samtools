@@ -33,8 +33,6 @@
 
 
 
-
-
 bool SaveRemoteSamtoolsJobDetails (RemoteServiceJob *job_p, const ServiceData *service_data_p)
 {
 	bool success_flag = false;
@@ -44,7 +42,7 @@ bool SaveRemoteSamtoolsJobDetails (RemoteServiceJob *job_p, const ServiceData *s
 
 
 
-bool AddPairedIndexParameters (Service *service_p, Parameter *internal_dbs_param_p, ParameterSet *internal_params_p)
+bool AddPairedIndexParameters (Service *service_p, StringParameter *internal_dbs_param_p, ParameterSet *internal_params_p)
 {
 	bool success_flag = true;
 
@@ -64,24 +62,24 @@ bool AddPairedIndexParameters (Service *service_p, Parameter *internal_dbs_param
 						{
 							if (external_dbs_param_p -> pa_options_p)
 								{
-									ParameterOptionNode *node_p = (ParameterOptionNode *) (external_dbs_param_p -> pa_options_p -> ll_head_p);
+									StringParameterOptionNode *node_p = (StringParameterOptionNode *) (external_dbs_param_p -> pa_options_p -> ll_head_p);
 
 									while (success_flag && node_p)
 										{
-											ParameterOption *option_p = node_p -> pon_option_p;
-											char *db_s = CreateDatabaseName (option_p -> po_description_s, paired_service_p -> ps_server_name_s);
+											StringParameterOption *option_p = node_p -> spon_option_p;
+											char *db_s = CreateDatabaseName (option_p -> spo_description_s, paired_service_p -> ps_server_name_s);
 
 											if (db_s)
 												{
-													if (!CreateAndAddParameterOptionToParameter (internal_dbs_param_p, option_p -> po_value, db_s))
+													if (!CreateAndAddStringParameterOption (internal_dbs_param_p, option_p -> spo_value_s, db_s))
 														{
-															PrintLog (STM_LEVEL_WARNING, __FILE__, __LINE__, "Failed to add database \"%s\" from paired service \"%s\"", option_p -> po_description_s, paired_service_p -> ps_name_s);
+															PrintLog (STM_LEVEL_WARNING, __FILE__, __LINE__, "Failed to add database \"%s\" from paired service \"%s\"", option_p -> spo_description_s, paired_service_p -> ps_name_s);
 														}
 
 													FreeCopiedString (db_s);
 												}
 
-											node_p = (ParameterOptionNode *) (node_p -> pon_node.ln_next_p);
+											node_p = (StringParameterOptionNode *) (node_p -> spon_node.ln_next_p);
 										}		/* while (success_flag && node_p) */
 
 								}		/* if (external_dbs_param_p -> pa_options_p) */
