@@ -75,13 +75,13 @@ static SamToolsServiceData *AllocateSamToolsServiceData (Service *service_p);
 
 static void FreeSamToolsServiceData (SamToolsServiceData *data_p);
 
-static const char *GetSamToolsServiceName (Service *service_p);
+static const char *GetSamToolsServiceName (const Service *service_p);
 
-static const char *GetSamToolsServiceDesciption (Service *service_p);
+static const char *GetSamToolsServiceDesciption (const Service *service_p);
 
 static ParameterSet *GetSamToolsServiceParameters (Service *service_p, Resource *resource_p, UserDetails *user_p);
 
-static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p);
+static bool GetSamToolsServiceParameterTypesForNamedParameters (const Service *service_p, const char *param_name_s, ParameterType *pt_p);
 
 static void ReleaseSamToolsServiceParameters (Service *service_p, ParameterSet *params_p);
 
@@ -267,13 +267,13 @@ static bool CloseSamToolsService (Service *service_p)
 }
  
  
-static const char *GetSamToolsServiceName (Service * UNUSED_PARAM (service_p))
+static const char *GetSamToolsServiceName (const Service * UNUSED_PARAM (service_p))
 {
 	return "SamTools";
 }
 
 
-static const char *GetSamToolsServiceDesciption (Service * UNUSED_PARAM (service_p))
+static const char *GetSamToolsServiceDesciption (const Service * UNUSED_PARAM (service_p))
 {
 	return "A service that enables efficient access to arbitrary regions within available reference sequences.";
 }
@@ -314,7 +314,7 @@ static void ReleaseSamToolsServiceParameters (Service * UNUSED_PARAM (service_p)
 }
 
 
-static bool GetSamToolsServiceParameterTypesForNamedParameters (struct Service *service_p, const char *param_name_s, ParameterType *pt_p)
+static bool GetSamToolsServiceParameterTypesForNamedParameters (const Service *service_p, const char *param_name_s, ParameterType *pt_p)
 {
 	bool success_flag = true;
 
