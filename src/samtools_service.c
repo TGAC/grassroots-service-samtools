@@ -294,6 +294,8 @@ static ParameterSet *GetSamToolsServiceParameters (Service *service_p, Resource 
 						{
 							const uint32 def_line_length = S_DEFAULT_LINE_BREAK_INDEX;
 
+							param_p -> pa_required_flag = true;
+
 							if ((param_p = EasyCreateAndAddUnsignedIntParameterToParameterSet (& (data_p -> stsd_base_data), param_set_p, NULL, SS_SCAFFOLD_LINE_BREAK.npt_name_s, "Max Line Length", "If this is greater than 0, then add a newline after each block of this many letters", &def_line_length, PL_ADVANCED)) != NULL)
 								{
 									return param_set_p;
