@@ -77,7 +77,9 @@ static void FreeSamToolsServiceData (SamToolsServiceData *data_p);
 
 static const char *GetSamToolsServiceName (const Service *service_p);
 
-static const char *GetSamToolsServiceDesciption (const Service *service_p);
+static const char *GetSamToolsServiceDescription (const Service *service_p);
+
+static const char *GetSamToolsServiceAlias (const Service *service_p);
 
 static ParameterSet *GetSamToolsServiceParameters (Service *service_p, Resource *resource_p, UserDetails *user_p);
 
@@ -125,7 +127,8 @@ ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p)
 
 							if (InitialiseService (service_p,
 								GetSamToolsServiceName,
-								GetSamToolsServiceDesciption,
+								GetSamToolsServiceDescription,
+								GetSamToolsServiceAlias,
 								NULL,
 								RunSamToolsService,
 								IsFileForSamToolsService,
@@ -273,9 +276,15 @@ static const char *GetSamToolsServiceName (const Service * UNUSED_PARAM (service
 }
 
 
-static const char *GetSamToolsServiceDesciption (const Service * UNUSED_PARAM (service_p))
+static const char *GetSamToolsServiceDescription (const Service * UNUSED_PARAM (service_p))
 {
 	return "A service that enables efficient access to arbitrary regions within available reference sequences.";
+}
+
+
+static const char *GetSamToolsServiceAlias (const Service * UNUSED_PARAM (service_p))
+{
+	return "samtools";
 }
 
 
