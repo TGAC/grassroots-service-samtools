@@ -284,7 +284,7 @@ static const char *GetSamToolsServiceDescription (const Service * UNUSED_PARAM (
 
 static const char *GetSamToolsServiceAlias (const Service * UNUSED_PARAM (service_p))
 {
-	return "samtools";
+	return "samtools/search";
 }
 
 
