@@ -488,7 +488,7 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 																			char uuid_s [UUID_STRING_BUFFER_SIZE];
 
 																			json_decref (result_p);
-																			AddErrorMessageToServiceJob (job_p, ERROR_S, "Failed to add result");
+																			AddGeneralErrorMessageToServiceJob (job_p, "Failed to add result");
 
 																			ConvertUUIDToString (job_p -> sj_id, uuid_s);
 																			PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to add result for %s", uuid_s);
@@ -496,15 +496,23 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 																}
 															else
 																{
-																	if (!AddErrorMessageToServiceJob (job_p, "Create sequence error", scaffold_s))
+																	const char *prefix_s = "Create sequence error";
+																	char *error_s = ConcatenateStrings (prefix_s, scaffold_s);
+
+																	if (error_s)
 																		{
-																			PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to create job result sequence data for scaffold name %s from %s", scaffold_s, selected_index_data_p -> id_fasta_filename_s);
+																			AddGeneralErrorMessageToServiceJob (job_p, error_s);
+																			FreeCopiedString (error_s);
+																		}
+																	else
+																		{
+																			AddGeneralErrorMessageToServiceJob (job_p, prefix_s);
 																		}
 																}
 														}
 													else
 														{
-															if (!AddErrorMessageToServiceJob (job_p, "Get scaffold error", "Failed to get scaffold data"))
+															if (!AddGeneralErrorMessageToServiceJob (job_p, "Failed to get scaffold data"))
 																{
 																	PrintErrors (STM_LEVEL_SEVERE, __FILE__, __LINE__, "Failed to add error to job");
 																}
