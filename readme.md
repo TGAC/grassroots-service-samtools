@@ -51,7 +51,7 @@ to install the service into the Grassroots system where it will be available for
 
 ## Configuration options
 
-The service can be configured by a file with the same names in the ```config``` directory in the Grassroots application directory, *e.g.* ```config/SamTools service```. 
+The service can be configured by a file with the same names in the ```config``` directory in the Grassroots application directory, *e.g.* ```config/SamTools```. 
 
 
 * **index_files**: This is an array of objects with each consisting of two key-value pairs.
