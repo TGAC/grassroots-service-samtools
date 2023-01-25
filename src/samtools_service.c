@@ -81,7 +81,7 @@ static const char *GetSamToolsServiceDescription (const Service *service_p);
 
 static const char *GetSamToolsServiceAlias (const Service *service_p);
 
-static ParameterSet *GetSamToolsServiceParameters (Service *service_p, Resource *resource_p, UserDetails *user_p);
+static ParameterSet *GetSamToolsServiceParameters (Service *service_p, DataResource *resource_p, UserDetails *user_p);
 
 static bool GetSamToolsServiceParameterTypesForNamedParameters (const Service *service_p, const char *param_name_s, ParameterType *pt_p);
 
@@ -89,7 +89,7 @@ static void ReleaseSamToolsServiceParameters (Service *service_p, ParameterSet *
 
 static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, UserDetails *user_p, ProvidersStateTable *providers_p);
 
-static  ParameterSet *IsFileForSamToolsService (Service *service_p, Resource *resource_p, Handler *handler_p);
+static  ParameterSet *IsFileForSamToolsService (Service *service_p, DataResource *resource_p, Handler *handler_p);
 
 static bool CloseSamToolsService (Service *service_p);
 
@@ -288,7 +288,7 @@ static const char *GetSamToolsServiceAlias (const Service * UNUSED_PARAM (servic
 }
 
 
-static ParameterSet *GetSamToolsServiceParameters (Service *service_p, Resource * UNUSED_PARAM (resource_p), UserDetails * UNUSED_PARAM (user_p))
+static ParameterSet *GetSamToolsServiceParameters (Service *service_p, DataResource * UNUSED_PARAM (resource_p), UserDetails * UNUSED_PARAM (user_p))
 {
 	ParameterSet *param_set_p = AllocateParameterSet ("SamTools service parameters", "The parameters used for the SamTools service");
 	
@@ -457,7 +457,7 @@ static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *para
 
 																	if (sequence_p)
 																		{
-																			result_p = GetResourceAsJSONByParts (PROTOCOL_INLINE_S, NULL, scaffold_s, sequence_p);
+																			result_p = GetDataResourceAsJSONByParts (PROTOCOL_INLINE_S, NULL, scaffold_s, sequence_p);
 
 																			if (!result_p)
 																				{
@@ -699,7 +699,7 @@ static bool GetScaffoldData (const char * const filename_s, const char * const s
 }
 
 
-static ParameterSet *IsFileForSamToolsService (Service * UNUSED_PARAM (service_p), Resource * UNUSED_PARAM (resource_p), Handler * UNUSED_PARAM (handler_p))
+static ParameterSet *IsFileForSamToolsService (Service * UNUSED_PARAM (service_p), DataResource * UNUSED_PARAM (resource_p), Handler * UNUSED_PARAM (handler_p))
 {
 	return NULL;
 }
