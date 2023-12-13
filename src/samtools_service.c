@@ -81,13 +81,13 @@ static const char *GetSamToolsServiceDescription (const Service *service_p);
 
 static const char *GetSamToolsServiceAlias (const Service *service_p);
 
-static ParameterSet *GetSamToolsServiceParameters (Service *service_p, DataResource *resource_p, UserDetails *user_p);
+static ParameterSet *GetSamToolsServiceParameters (Service *service_p, DataResource *resource_p, User *user_p);
 
 static bool GetSamToolsServiceParameterTypesForNamedParameters (const Service *service_p, const char *param_name_s, ParameterType *pt_p);
 
 static void ReleaseSamToolsServiceParameters (Service *service_p, ParameterSet *params_p);
 
-static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, UserDetails *user_p, ProvidersStateTable *providers_p);
+static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, User *user_p, ProvidersStateTable *providers_p);
 
 static  ParameterSet *IsFileForSamToolsService (Service *service_p, DataResource *resource_p, Handler *handler_p);
 
@@ -109,7 +109,7 @@ static ServiceMetadata *GetSamToolsServiceMetadata (Service *service_p);
 /*
  * API FUNCTIONS
  */
-ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p)
+ServicesArray *GetServices (User *user_p, GrassrootsServer *grassroots_p)
 {
 	Service *service_p = (Service *) AllocMemory (sizeof (Service));
 
@@ -288,7 +288,7 @@ static const char *GetSamToolsServiceAlias (const Service * UNUSED_PARAM (servic
 }
 
 
-static ParameterSet *GetSamToolsServiceParameters (Service *service_p, DataResource * UNUSED_PARAM (resource_p), UserDetails * UNUSED_PARAM (user_p))
+static ParameterSet *GetSamToolsServiceParameters (Service *service_p, DataResource * UNUSED_PARAM (resource_p), User * UNUSED_PARAM (user_p))
 {
 	ParameterSet *param_set_p = AllocateParameterSet ("SamTools service parameters", "The parameters used for the SamTools service");
 	
@@ -405,7 +405,7 @@ static bool GetDatabaseParameterTypeForNamedParameter (SamToolsServiceData *data
 	return success_flag;
 }
 
-static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, UserDetails * UNUSED_PARAM (user_p), ProvidersStateTable *providers_p)
+static ServiceJobSet *RunSamToolsService (Service *service_p, ParameterSet *param_set_p, User * UNUSED_PARAM (user_p), ProvidersStateTable *providers_p)
 {
 	SamToolsServiceData *data_p = (SamToolsServiceData *) (service_p -> se_data_p);
 	service_p -> se_jobs_p = AllocateServiceJobSet (service_p);

@@ -92,13 +92,13 @@ extern "C"
 /**
  * Get the ServicesArray containing the SamTools Services.
  *
- * @param user_p The UserDetails for the user trying to access the services.
+ * @param user_p The User for the user trying to access the services.
  * This can be <code>NULL</code>.
  * @return The ServicesArray containing all of the SamTools Services or
  * <code>NULL</code> upon error.
  * @ingroup samtools_service
  */
-SAMTOOLS_SERVICE_API ServicesArray *GetServices (UserDetails *user_p, GrassrootsServer *grassroots_p);
+SAMTOOLS_SERVICE_API ServicesArray *GetServices (User *user_p, GrassrootsServer *grassroots_p);
 
 
 /**

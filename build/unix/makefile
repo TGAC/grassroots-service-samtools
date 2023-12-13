@@ -35,6 +35,7 @@ VPATH := \
 
 INCLUDES := \
 	-I$(DIR_INCLUDE) \
+	-I$(DIR_GRASSROOTS_USERS_INC) \
 	-I$(DIR_GRASSROOTS_UUID_INC) \
 	-I$(DIR_GRASSROOTS_UTIL_INC) \
 	-I$(DIR_GRASSROOTS_UTIL_INC)/containers \
@@ -48,7 +49,8 @@ INCLUDES := \
 	-I$(DIR_GRASSROOTS_TASK_INC) \
 	-I$(DIR_JANSSON_INC) \
 	-I$(DIR_UUID_INC) \
-	-I$(DIR_HTSLIB_INC)
+	-I$(DIR_HTSLIB_INC) \
+	-I$(DIR_BSON_INC)
 	
 SRCS := \
 	paired_samtools_service.c \
