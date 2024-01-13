@@ -840,7 +840,7 @@ static IndexData *GetSelectedIndexData (const SamToolsServiceData * const data_p
 
 static Parameter *SetUpIndexesParamater (const SamToolsServiceData *service_data_p, ParameterSet *param_set_p, ParameterGroup *group_p)
 {
-	StringParameter *param_p = NULL;
+	Parameter *param_p = NULL;
 	const size_t num_dbs = service_data_p ->  stsd_index_data_size;
 
 	if (num_dbs > 0)
@@ -848,7 +848,7 @@ static Parameter *SetUpIndexesParamater (const SamToolsServiceData *service_data
 			IndexData *index_data_p = service_data_p -> stsd_index_data_p;
 			const char *index_s = index_data_p -> id_blast_db_name_s;
 
-			if ((param_p = (StringParameter *) EasyCreateAndAddStringParameterToParameterSet (& (service_data_p -> stsd_base_data), param_set_p, group_p, SS_INDEX.npt_type, SS_INDEX.npt_name_s, "Indexes", "The available databases", index_s, PL_ALL)) != NULL)
+			if ((param_p = EasyCreateAndAddStringParameterToParameterSet (& (service_data_p -> stsd_base_data), param_set_p, group_p, SS_INDEX.npt_type, SS_INDEX.npt_name_s, "Indexes", "The available databases", index_s, PL_ALL)) != NULL)
 				{
 					bool success_flag = true;
 					size_t i;
@@ -891,9 +891,9 @@ static Parameter *SetUpIndexesParamater (const SamToolsServiceData *service_data
 
 					if (success_flag)
 						{
-							AddPairedIndexParameters (service_data_p -> stsd_base_data.sd_service_p, param_p, param_set_p);
+							AddPairedIndexParameters (service_data_p -> stsd_base_data.sd_service_p, (StringParameter *) param_p, param_set_p);
 
-							return & (param_p -> sp_base_param);
+							return param_p;
 						}
 
 				}

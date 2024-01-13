@@ -71,7 +71,7 @@ bool AddPairedIndexParameters (Service *service_p, StringParameter *internal_dbs
 
 											if (db_s)
 												{
-													if (!CreateAndAddStringParameterOption (internal_dbs_param_p, option_p -> spo_value_s, db_s))
+													if (!CreateAndAddStringParameterOption (& (internal_dbs_param_p -> sp_base_param), option_p -> spo_value_s, db_s))
 														{
 															PrintLog (STM_LEVEL_WARNING, __FILE__, __LINE__, "Failed to add database \"%s\" from paired service \"%s\"", option_p -> spo_description_s, paired_service_p -> ps_name_s);
 														}
